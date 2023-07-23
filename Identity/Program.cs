@@ -1,25 +1,17 @@
+using Infrastructure.DataAccess;
+using Infrastructure.Shared;
+using Microsoft.Extensions.DependencyInjection;
+using TaskManagement;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
+startup.Configure(app, builder.Environment);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
+using var serviceScope = app.Services.GetService<IServiceScopeFactory>()!.CreateScope();
+var context = serviceScope.ServiceProvider.GetService<EFDbContext>();
+EFDatabaseInitializer.Initialize(context!, serviceScope);
 app.Run();
