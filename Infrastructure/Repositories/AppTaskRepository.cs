@@ -15,12 +15,12 @@ namespace Infrastructure.Repositories
 
         public async Task InsertAsync(AppTask entity)
         {
-           await this.dbContext.AppTasks.AddAsync(entity);
+            await this.dbContext.AppTasks.AddAsync(entity);
         }
 
         public async Task<AppTask?> OfIdAsync(Guid id)
         {
-           return  await this.dbContext.AppTasks.FindAsync(id);
+            return await this.dbContext.AppTasks.FindAsync(id);
         }
 
         public IQueryable<AppTask> Query()

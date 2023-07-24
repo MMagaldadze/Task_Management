@@ -28,7 +28,7 @@ namespace Domain.AppTaskManagement
             {
                 throw new ArgumentNullException("Priority cannot be null or empty");
             }
-            
+
             this.Title = title;
             this.Description = description;
             this.Priority = priority;

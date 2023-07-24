@@ -1,8 +1,8 @@
 ﻿using Application.AppTaskManagement.Dtos;
 
-namespace Application.AppTaskManagement.Queries.GetPendingAppTasks
+namespace Application.AppTaskManagement.Queries.GetAppTasks
 {
-    public class GetPendingAppTasksQueryResponse 
+    public class GetAppTasksQueryResponse 
     {
         public IEnumerable<AppTaskDtoModel>? AppTasks { get; set; }
     }

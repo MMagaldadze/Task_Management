@@ -10,7 +10,6 @@ namespace Identity.Api.Controllers
     [ApiController]
     public abstract class BaseApiController : ControllerBase
     {
-        protected IMediator Mediator  => this.HttpContext.RequestServices.GetService<IMediator>();
-
+        protected IMediator Mediator => this.HttpContext.RequestServices.GetService<IMediator>();
     }
 }

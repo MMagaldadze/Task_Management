@@ -17,5 +17,5 @@ namespace Infrastructure.DataAccess
         }
 
         public DbSet<AppTask> AppTasks { get; set; }
-    }   
+    }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.AppTaskManagement.Enums
 {
-    public enum  Status
+    public enum Status
     {
         Pending = 0,
 
@@ -9,6 +9,6 @@ namespace Domain.AppTaskManagement.Enums
 
         InProgress = 2,
 
-        Done = 3    
+        Done = 3
     }
 }

@@ -37,7 +37,7 @@ namespace DI
             }
 
             services.AddScoped<IAppTaskRepository, AppTaskRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();  
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<EFDbContext>(opt =>
@@ -82,13 +82,11 @@ namespace DI
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtConfig["ValidIssuer"],        
-                    ValidAudience = jwtConfig["ValidAudience"],  
+                    ValidIssuer = jwtConfig["ValidIssuer"],
+                    ValidAudience = jwtConfig["ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["SecretKey"]))
                 };
             });
         }
     }
-
-
 }

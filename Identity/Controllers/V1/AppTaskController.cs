@@ -1,7 +1,8 @@
 ﻿using Application.AppTaskManagement.Commands.CreateAppTask;
 using Application.AppTaskManagement.Commands.UpdateAppTaskStatus;
 using Application.AppTaskManagement.Queries.GetAppTask;
-using Application.AppTaskManagement.Queries.GetPendingAppTasks;
+using Application.AppTaskManagement.Queries.GetAppTasks;
+using Domain.AppTaskManagement.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
@@ -9,17 +10,16 @@ using Shared.Constants;
 namespace Identity.Api.Controllers.V1
 {
     [Route("api/v1/[controller]")]
-    [ApiController]
     public class AppTaskController : BaseApiController
     {
         [Authorize(Roles = UserRoleNames.Support)]
-        [HttpGet("Pending")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<GetPendingAppTasksQueryRequest>> GetAllPendingsAsync()
+        public async Task<ActionResult<GetAppTasksQueryRequest>> GetAllAsync(Status? status)
         {
-            var request = new GetPendingAppTasksQueryRequest();
+            var request = new GetAppTasksQueryRequest { Status = status };
 
             return Ok(await Mediator.Send(request));
         }
@@ -37,7 +37,7 @@ namespace Identity.Api.Controllers.V1
             return Ok(await Mediator.Send(request));
         }
 
-        [Authorize(Roles =UserRoleNames.User)]
+        [Authorize(Roles = UserRoleNames.User)]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -51,7 +51,7 @@ namespace Identity.Api.Controllers.V1
         }
 
         [Authorize(Roles = UserRoleNames.Support)]
-        [HttpPut("{id}")]
+        [HttpPatch("{id}/change-status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
